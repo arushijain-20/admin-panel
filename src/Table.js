@@ -105,16 +105,23 @@ function Table() {
     setSearchQuery(e.target.value);
   };
   const handleSearch = () => {
-    if (searchQuery) {
-      const newFilteredData = data.filter((row) =>
-        Object.values(row).some((value) =>
-          value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      );
-      setFilteredData(newFilteredData);
-      setCurrentPage(1);
+    
+      if (searchQuery) {
+        const newFilteredData = data.filter((row) =>
+          Object.values(row).some((value) =>
+            value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+          )
+        );
+        setFilteredData(newFilteredData);
+        setCurrentPage(1);
+      
     }
   };
+  const handleEnter=(e)=>{
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  }
 //handle refresh button
   const handleRefresh = () => {
     setFilteredData(data);
@@ -148,6 +155,7 @@ function Table() {
             placeholder="Search..."
             value={searchQuery}
             onChange={handleChange}
+            onKeyDown={handleEnter}
             className="px-2 py-1 border border-gray-300 rounded"
           />
           <button
